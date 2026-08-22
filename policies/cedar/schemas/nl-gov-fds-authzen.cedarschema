@@ -1,0 +1,65 @@
+namespace NL_Gov {
+    // --- IDENTITY LIFECYCLE ---
+    entity User in [Group] {
+        bsn_hash: String,
+        organization_id: String,
+        clearance_level: Long,
+        is_contractor: Bool,
+        contact_info: {
+            email: String,
+            phone_number?: String
+        },
+        temporary_delegation?: Group
+    };
+
+    entity Group {
+        role_title: String,
+        is_active: Bool
+    };
+
+    entity ServiceAccount {
+        client_id: String,
+        api_key_expires: Long
+    };
+
+    // --- SECURED RESOURCE ASSETS ---
+    entity SecuredDomain {
+        municipality_code: String
+    };
+
+    entity BaseRegistry in [SecuredDomain] {
+        registry_name: String,
+        data_classification: String
+    };
+
+    entity CitizenRecord in [BaseRegistry] {
+        record_id: String,
+        requires_four_eyes: Bool,
+        retention_date?: Long
+    };
+
+    // --- ACTIONS AND POLICIES ---
+    action ReadRecord appliesTo {
+        principal: [User, ServiceAccount],
+        resource: [CitizenRecord],
+        context: {
+            request_timestamp: Long,
+            client_ip: String,
+            authzen_version: String,
+            mfa_verified: Bool,
+            legal_basis?: String
+        }
+    };
+
+    action ModifyRecord in [ReadRecord] appliesTo {
+        principal: [User],
+        resource: [CitizenRecord],
+        context: {
+            request_timestamp: Long,
+            client_ip: String,
+            authzen_version: String,
+            mfa_verified: Bool,
+            digital_signature_token: String
+        }
+    };
+}

@@ -1,0 +1,245 @@
+.app-shell {
+  --bg: #1e1e1e;
+  --bg-elevated: #252526;
+  --border: #3c3c3c;
+  --text: #cccccc;
+  --text-strong: #ffffff;
+  --text-muted: #8a8a8a;
+  --accent: #0e639c;
+  --hover: rgba(255, 255, 255, 0.08);
+  --dirty: #e2a336;
+  --error: #f14c4c;
+  --warning: #cca700;
+  --ok: #4caf7d;
+
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+}
+
+.app-shell[data-theme='light'] {
+  --bg: #ffffff;
+  --bg-elevated: #f3f3f3;
+  --border: #d4d4d4;
+  --text: #3b3b3b;
+  --text-strong: #1e1e1e;
+  --text-muted: #6e6e6e;
+  --accent: #0e639c;
+  --hover: rgba(0, 0, 0, 0.06);
+  --dirty: #b5890a;
+  --error: #cd3131;
+  --warning: #b5890a;
+  --ok: #2e7d32;
+}
+
+.app-header {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elevated);
+}
+
+.app-header-title {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.app-header .tagline {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.app-header-controls {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lang-switch,
+.theme-switch {
+  flex: none;
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+}
+
+.lang-switch button,
+.theme-switch button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-size: 0.8rem;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.theme-switch button {
+  padding: 5px 8px;
+}
+
+.lang-switch button:hover,
+.theme-switch button:hover {
+  color: var(--text);
+}
+
+.lang-switch button.active,
+.theme-switch button.active {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.app-body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.sidebar {
+  flex: none;
+  width: 300px;
+  padding: 16px 12px;
+  border-right: 1px solid var(--border);
+  background: var(--bg-elevated);
+  overflow-y: auto;
+}
+
+.file-group {
+  margin-bottom: 24px;
+}
+
+.file-group h2 {
+  margin: 0 0 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.file-group .file-name {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+  color: var(--text);
+  word-break: break-all;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.file-error {
+  margin: 0 0 8px;
+  font-size: 0.75rem;
+  color: var(--error);
+  word-break: break-word;
+}
+
+.dirty-dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--dirty);
+}
+
+.file-group button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 8px;
+  margin-bottom: 4px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.file-group button:hover {
+  background: var(--hover);
+  border-color: var(--border);
+}
+
+.studio {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 16px;
+  min-height: 0;
+  overflow: auto;
+}
+
+.pane h2 {
+  font-size: 0.85rem;
+  margin: 0 0 8px;
+  color: var(--text);
+}
+
+.diagnostics {
+  margin-top: 12px;
+}
+
+.diagnostics h2 {
+  font-size: 0.75rem;
+  margin: 0 0 4px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.diagnostics ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.8rem;
+}
+
+.diagnostics li {
+  padding: 2px 0;
+}
+
+.diagnostics li.error {
+  color: var(--error);
+}
+
+.diagnostics li.warning {
+  color: var(--warning);
+}
+
+.diagnostics .ok {
+  color: var(--ok);
+  font-size: 0.8rem;
+}
+
+.diagnostics-error {
+  color: var(--error);
+  font-size: 0.8rem;
+  margin: 0;
+}

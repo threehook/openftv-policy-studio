@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org",
+  "title": "OpenFTV Policy Input Schema",
+  "type": "object",
+  "required": ["user", "resource", "action", "request"],
+  "properties": {
+    "user": {
+      "type": "object",
+      "required": ["tenant_id", "roles", "department", "global_admin"],
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Unique identifier of the tenant the user belongs to."
+        },
+        "roles": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "The RBAC roles assigned to this specific user profile."
+        },
+        "department": {
+          "type": "string",
+          "description": "The corporate department or unit mapping for ABAC rules (e.g., HR, Engineering)."
+        },
+        "global_admin": {
+          "type": "boolean",
+          "description": "Flag determining if the user completely bypasses regular tenant scopes."
+        }
+      }
+    },
+    "resource": {
+      "type": "object",
+      "required": ["tenant_id", "type", "classification"],
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "The owner tenant ID of the resource asset being requested."
+        },
+        "type": {
+          "type": "string",
+          "enum": ["financial_records", "system_logs", "user_profiles"],
+          "description": "The system data type classification used to evaluate operation scope permissions."
+        },
+        "classification": {
+          "type": "string",
+          "enum": ["public", "restricted", "highly-classified"],
+          "description": "Data classification layer determining ABAC restriction overrides."
+        }
+      }
+    },
+    "action": {
+      "type": "object",
+      "required": ["type", "scope"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The general type of the action mapped back to permission levels."
+        },
+        "scope": {
+          "type": "string",
+          "enum": ["read", "write", "delete"],
+          "description": "The specific operation execution scope layer."
+        }
+      }
+    },
+    "request": {
+      "type": "object",
+      "required": ["timestamp_ns"],
+      "properties": {
+        "timestamp_ns": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Unix timestamp in nanoseconds used to determine execution windows."
+        }
+      }
+    }
+  }
+}
